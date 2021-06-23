@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-sm-8 d-flex flex-column  justify-content-center mx-auto" >
+    <h1 class="display-4 heading-color" >Home</h1>
+    <hr>
+    <h4 class='display-6'><u>Available rooms</u></h4>
+    <div id="roomDisplayId" style="height:180px; overflow: auto;">
+        <ul>
+            {% for room in rooms %}
+            <li>{{ room.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <hr>
+
+    <h4 class="display-6"><u>Create New Room Or Join room here</u></h4>
+    <form method="post" action="/" novalidate>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Create" class="btn btn-success">
+    </form>
+</div>
+
+</div>
+
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'home.js' %}"></script>
+{% endblock script %}

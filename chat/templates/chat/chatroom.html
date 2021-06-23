@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    #displayMessage {
+        border: 2px solid black;
+        border-radius: 5px;
+        height: 300px;
+        padding: 10px;
+        overflow: auto;
+    }
+
+    .messageClass {
+        border: 1px solid blue;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    input[type=text] {
+        padding: 10px;
+        width: 90%;
+        margin-top: 4px;
+        border-radius: 3px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-8 mx-auto">
+        <h1 class="display-4 heading-color">ChatRoom</h1>
+        <button onclick="goBack()" class="btn btn-outline-secondary">Back</button>
+        <hr>
+        <div>
+            <h3 class="display-6" style="color:rgb(18, 162, 219); display: inline;"><u>Room</u>: <span id="room_name_id"
+                    data-room="{{ room_details }}">'{{ room_details.name }}'</span></h3> | <h4 class="display-6"
+                style="display: inline;color:rgb(18, 162, 219);" id="usernameId" data-username="{{ username }}">
+                <u>Username</u>:
+                '{{ username }}'</h4>
+        </div>
+
+        <div id="displayMessage"></div>
+
+        <form method="post" id="messageFormId">
+            {% csrf_token %}
+            <input type="hidden" data-room_name="{{ room_name }}">
+            <input type="text" name="message" id="message_body" width="100px" placeholder="message here..." />
+            <input type="submit" value="Send" class="btn btn-primary mt-2">
+        </form>
+    </div>
+    {% endblock content %}
+
+    {% block script %}
+    <script src="{% static 'chatroom.js' %}"></script>
+    {% endblock script %}
